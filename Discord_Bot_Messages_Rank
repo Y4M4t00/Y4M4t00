@@ -1,0 +1,56 @@
+#it is all written in Italian but can be modified at will
+
+
+import discord
+from discord.ext import commands
+from collections import defaultdict
+
+
+CHANNEL_ID = Insert-ChannekID
+
+
+# Crea un bot senza alcun prefisso
+intents = discord.Intents.default()
+intents.messages = True
+intents.guilds = True
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+# Dizionario per tenere traccia del conteggio dei messaggi
+message_count = defaultdict(int)
+
+# Evento al momento che il bot è pronto
+@bot.event
+async def on_ready():
+ print(f'Siamo connessi come {bot.user}')
+ canele = bot.get_channel(CHANNEL_ID)
+
+# Evento che si attiva ogni volta che un messaggio viene inviato
+@bot.event
+async def on_message(message):
+ if message.author == bot.user:  # Ignora i messaggi del bot
+     return
+
+ # Incrementa il contatore dei messaggi per l'autore
+ message_count[message.author.id] += 1
+
+ await bot.process_commands(message)  # Permette l'elaborazione di comandi
+
+# Comando per visualizzare la classifica
+@bot.command()
+async def classifica(ctx):
+ # Ordina gli utenti in base al numero di messaggi
+ sorted_counts = sorted(message_count.items(), key=lambda x: x[1], reverse=True)
+
+ # Crea un messaggio per la classifica
+ leaderboard = "🏆 **Classifica Messaggi** 🏆\n"
+ for index, (user_id, count) in enumerate(sorted_counts, start=1):
+     user = ctx.guild.get_member(user_id)
+     leaderboard += f"{index}. {user.name if user else 'Utente lasciato'} - {count} messaggi"
+ 
+ await ctx.send(leaderboard if sorted_counts else "Nessun messaggio registrato.")
+
+# Avvia il bot
+TOKEN = 'Insert_Token'
+bot.run(TOKEN)
