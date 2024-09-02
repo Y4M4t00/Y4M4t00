@@ -2,7 +2,7 @@
 - 👀 I’m interested in new programming languages
 - 🌱 I’m currently learning Python
 - 💞️ I’m looking to collaborate on anything
-- 📫 How to reach me on this e-mail "geisenauyamato@gmail.com"
+- 📫 How to reach me? Use this e-mail "geisenauyamato@gmail.com"
 - 😄 Pronouns: He
 - ⚡ Fun fact: I speak three languages: Italian, English and German
 
